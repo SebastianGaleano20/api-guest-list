@@ -2,6 +2,7 @@
   "name": "api-guest-list",
   "version": "1.0.0",
   "description": "API REST for wedding guests",
+  "type": "module",
   "main": "server.ts",
   "scripts": {
     "dev": "tsx watch src/server.ts",
