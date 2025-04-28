@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { Guest } from "../types";
+import type { Guest } from "../types/index";
 
 export const GuestModel = () => {
   // Modelo para encontrar Invitado por token

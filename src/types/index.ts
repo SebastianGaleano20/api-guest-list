@@ -10,3 +10,10 @@ export interface Guest {
   companion?: String[];
   musicSuggestion?: String[];
 }
+export interface Admin {
+  id?: Number;
+  name: String;
+  email: String;
+  password: String;
+  image: String;
+}
