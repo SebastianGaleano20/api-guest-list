@@ -2,27 +2,29 @@ import { prisma } from "../config/prisma";
 import type { Admin } from "../types/index";
 
 export const AdminModel = () => {
+  // Modelo para crear Administrador.
   const createAdmin = async (data: Admin) => {
     return prisma.admin.create({
       data: data,
     });
   };
-  const validateAdmin = async (data: Admin) => {
+  // Modelo para validar Administrador
+  const validationAdmin = async (email: string, password: string) => {
     const admin = await prisma.admin.findUnique({
       where: {
-        email: data.email,
+        email: email,
       },
     });
     if (!admin) {
       return false;
     }
-    if (admin.password !== data.password) {
+    if (admin.password !== password) {
       return false;
     }
     return true;
   };
   return {
     createAdmin,
-    validateAdmin,
+    validationAdmin,
   };
 };
