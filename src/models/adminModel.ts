@@ -7,7 +7,22 @@ export const AdminModel = () => {
       data: data,
     });
   };
+  const validateAdmin = async (data: Admin) => {
+    const admin = await prisma.admin.findUnique({
+      where: {
+        email: data.email,
+      },
+    });
+    if (!admin) {
+      return false;
+    }
+    if (admin.password !== data.password) {
+      return false;
+    }
+    return true;
+  };
   return {
     createAdmin,
+    validateAdmin,
   };
 };
