@@ -1,19 +1,19 @@
 type Status = "CONFIRMED" | "PENDING" | "CANCELED";
 export interface Guest {
   id?: Number;
-  name: String;
-  lastName: String;
-  email: String;
-  phone: String;
-  image: String;
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  image: string;
   status: Status;
-  companion?: String[];
-  musicSuggestion?: String[];
+  companion?: string[];
+  musicSuggestion?: string[];
 }
 export interface Admin {
   id?: Number;
-  name: String;
-  email: String;
-  password: String;
-  image: String;
+  name: string;
+  email: string;
+  password: string;
+  image: string;
 }

@@ -1,15 +1,20 @@
 import { AdminModel } from "../models/adminModel";
+import { verified } from "../utils/bcrypt";
 
-const { validationAdmin } = AdminModel();
+const { findByMail } = AdminModel();
 
 export const AdminService = () => {
-  // Servicio para validar administrador.
-  const validateAdmin = async (email: string, password: string) => {
-    const admin = await validationAdmin(email, password);
-    if (!admin) return null;
-    return admin;
+  // Servicio para logear administrador.
+  const login = async (email: string, password: string) => {
+    const admin = await findByMail(email);
+    if (!admin) return false;
+    // Verificamos contraseña hasheada
+    const isValid = await verified(password, admin.password);
+    if (!isValid)
+      return admin;
   };
+
   return {
-    validateAdmin,
+    login,
   };
 };
