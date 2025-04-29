@@ -15,35 +15,10 @@ export const generateToken = ({
     ? process.env.REFRESH_SECRET_KEY
     : process.env.SECRET_KEY;
 
-  // Verificar que secretKey no es undefined ni null
-  if (!secretKey || typeof secretKey !== 'string') {
-    throw new Error("Secret key is missing or not a valid string");
-  }
-
   // Generamos el token
   const token = jwt.sign(data, secretKey, {
     expiresIn, // 
   });
 
   return token;
-};
-
-// Función para verificar el token
-export const verifyToken = (token: string, isRefresh = false) => {
-  const secretKey = isRefresh
-    ? process.env.REFRESH_SECRET_KEY
-    : process.env.SECRET_KEY;
-
-  // Verificar que secretKey no es undefined ni null
-  if (!secretKey || typeof secretKey !== 'string') {
-    throw new Error("Secret key is missing or not a valid string");
-  }
-
-  try {
-    // Verificamos el token con la clave secreta
-    return jwt.verify(token, secretKey);
-  } catch (error) {
-    // Manejo de errores si el token es inválido o ha expirado
-    throw new Error("Invalid or expired token");
-  }
 };
