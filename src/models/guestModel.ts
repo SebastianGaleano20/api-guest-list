@@ -10,7 +10,7 @@ export const GuestModel = () => {
       },
     });
   };
-  const confirmAttendance = async(token: string, data: Guest) => {
+  const confirmAttendance = async (token: string, data: Guest) => {
     return await prisma.guest.update({
       where: {
         token,
@@ -21,19 +21,28 @@ export const GuestModel = () => {
       },
     });
   };
-  const createGuest = async(data: Guest) => {
+  const createGuest = async (data: Guest) => {
     return await prisma.guest.create({
       data,
     });
   };
-  const getAll = async() => {
+  const getAllGuest = async () => {
     return await prisma.guest.findMany();
   };
- 
+
+  const deleteGuest = async (id: number) => {
+    return await prisma.guest.delete({
+      where: {
+        id: id
+      }
+    })
+  }
+
   return {
     findByToken,
     confirmAttendance,
     createGuest,
-    getAll,
+    getAllGuest,
+    deleteGuest
   };
 };

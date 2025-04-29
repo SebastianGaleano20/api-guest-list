@@ -4,7 +4,7 @@ import { verified } from "../utils/bcrypt";
 import { generateToken } from "../utils/tokenManagement";
 
 const { findByMail } = AdminModel();
-const { getAll } = GuestModel();
+const { getAllGuest, deleteGuest } = GuestModel();
 
 export const AdminService = () => {
   // Servicio para logear administrador.
@@ -26,11 +26,16 @@ export const AdminService = () => {
       refreshToken,
     };
   };
-  const getAllGuest = async () => {
-    return await getAll();
+  const getAllGuestService = async () => {
+    return await getAllGuest();
   }
+  const deleteGuestService = async (id: number) => {
+    return await deleteGuest(id);
+  }
+  
   return {
     login,
-    getAllGuest
+    getAllGuestService,
+    deleteGuestService
   };
 };
