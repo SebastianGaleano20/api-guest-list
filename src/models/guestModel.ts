@@ -4,14 +4,14 @@ import type { Guest } from "../types/index";
 export const GuestModel = () => {
   // Modelo para encontrar Invitado por token
   const findByToken = async (token: string) => {
-    return prisma.guest.findUnique({
+    return await prisma.guest.findUnique({
       where: {
         token,
       },
     });
   };
-  const confirmAttendance = (token: string, data: Guest) => {
-    return prisma.guest.update({
+  const confirmAttendance = async(token: string, data: Guest) => {
+    return await prisma.guest.update({
       where: {
         token,
       },
@@ -21,18 +21,19 @@ export const GuestModel = () => {
       },
     });
   };
-  const createGuest = (data: Guest) => {
-    return prisma.guest.create({
+  const createGuest = async(data: Guest) => {
+    return await prisma.guest.create({
       data,
     });
   };
-  const getAllGuest = () => {
-    return prisma.guest.findMany();
+  const getAll = async() => {
+    return await prisma.guest.findMany();
   };
+ 
   return {
     findByToken,
     confirmAttendance,
     createGuest,
-    getAllGuest,
+    getAll,
   };
 };

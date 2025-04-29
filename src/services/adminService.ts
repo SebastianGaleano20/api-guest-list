@@ -1,8 +1,10 @@
 import { AdminModel } from "../models/adminModel";
+import { GuestModel } from "../models/guestModel";
 import { verified } from "../utils/bcrypt";
 import { generateToken } from "../utils/tokenManagement";
 
 const { findByMail } = AdminModel();
+const { getAll } = GuestModel();
 
 export const AdminService = () => {
   // Servicio para logear administrador.
@@ -24,7 +26,11 @@ export const AdminService = () => {
       refreshToken,
     };
   };
+  const getAllGuest = async () => {
+    return await getAll();
+  }
   return {
-    login
+    login,
+    getAllGuest
   };
 };
