@@ -11,7 +11,8 @@ export const GuestController = () => {
     ) => {
         const { name, token } = req.body;
         const guest = await validateGuest(name, token);
-        if (!guest) return res.status(httpStatus.UNAUTHORIZED).json({ message: "Unauthorized" });
+        if (!guest)
+            res.status(httpStatus.UNAUTHORIZED).json({ message: "Unauthorized" });
         next();
     };
     const confirm = async (
@@ -21,7 +22,8 @@ export const GuestController = () => {
     ) => {
         const { token } = req.params;
         const guest = await confirmGuest(token, req.body);
-        if (!guest) return res.status(httpStatus.UNAUTHORIZED).json({ message: "Unauthorized" });
+        if (!guest)
+            res.status(httpStatus.UNAUTHORIZED).json({ message: "Unauthorized" });
         next();
     };
 
