@@ -41,10 +41,21 @@ export const GuestModel = () => {
     })
   }
   // Model para encontrar invitado por id
-  const findById = async (id:number) => {
+  const findById = async (id: number) => {
     return await prisma.guest.findUnique({
       where: {
         id: id
+      }
+    })
+  }
+  // Model para actualizar datos del invitado
+  const updateGuest = async (data: Guest) => {
+    return await prisma.guest.update({
+      where: {
+        id: data.id
+      },
+      data: {
+        ...data
       }
     })
   }
@@ -55,6 +66,7 @@ export const GuestModel = () => {
     createGuest,
     getAllGuest,
     deleteGuest,
-    findById
+    findById,
+    updateGuest
   };
 };

@@ -2,9 +2,10 @@ import { AdminModel } from "../models/adminModel";
 import { GuestModel } from "../models/guestModel";
 import { verified } from "../utils/bcrypt";
 import { generateToken } from "../utils/tokenManagement";
+import type { Guest } from "../types/index";
 
 const { findByMail } = AdminModel();
-const { getAllGuest, deleteGuest, findById, createGuest } = GuestModel();
+const { getAllGuest, deleteGuest, findById, createGuest, updateGuest } = GuestModel();
 
 export const AdminService = () => {
   // Servicio para logear administrador.
@@ -26,23 +27,32 @@ export const AdminService = () => {
       refreshToken,
     };
   };
+  // Servicio para obtener invitados
   const getAllGuestService = async () => {
     return await getAllGuest();
   }
+  // Servicio para eliminar un invitado
   const deleteGuestService = async (id: number) => {
     return await deleteGuest(id);
   }
+  // Servicio para obtener invitado por id
   const getGuestByIdService = async (id: number) => {
     return await findById(id);
   }
-  const createGuestService = async (data: any) => {
+  // Servicio para crear invitado
+  const createGuestService = async (data: Guest) => {
     return await createGuest(data);
+  }
+  // Servicio para actualizar datos del invitado
+  const updateGuestService = async (data: Guest) => {
+    return await updateGuest(data);
   }
   return {
     login,
     getAllGuestService,
     deleteGuestService,
     getGuestByIdService,
-    createGuestService
+    createGuestService,
+    updateGuestService
   };
 };
