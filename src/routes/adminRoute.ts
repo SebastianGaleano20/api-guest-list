@@ -12,4 +12,5 @@ export const adminRoutes = () => {
         .delete(deleteGuest)
         .get(getGuestById)
         .patch(updateGuest);
+    return adminRouter;
 }
