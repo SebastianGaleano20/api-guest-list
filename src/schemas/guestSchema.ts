@@ -16,3 +16,7 @@ export const guestValidate = Joi.object({
     name: Joi.string().required(),
     token: Joi.string().required()
 })
+
+export const tokenValidate = Joi.object({
+    token: Joi.string().required()
+})
