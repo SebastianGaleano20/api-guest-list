@@ -6,7 +6,8 @@ export const AdminModel = () => {
   // Modelo para crear Administrador.
   const createAdmin = async (data: Admin) => {
     // Encriptamos la contraseña
-    const hash = await encrypt(data.password);
+    const passwordToHash = data.password;
+    const hash = await encrypt(passwordToHash);
     data.password = hash;
     return prisma.admin.create({
       data: data,

@@ -3,11 +3,16 @@ import { GuestModel } from "../models/guestModel";
 import { verified } from "../utils/bcrypt";
 import { generateToken } from "../utils/tokenManagement";
 import type { Guest } from "../types/index";
+import type { Admin } from "../types/index";
 
-const { findByMail } = AdminModel();
+const { findByMail, createAdmin } = AdminModel();
 const { getAllGuest, deleteGuest, findById, createGuest, updateGuest } = GuestModel();
 
 export const AdminService = () => {
+  // Servicio para crear administrador
+  const create = async (data: Admin) => {
+    return await createAdmin(data);
+  };
   // Servicio para logear administrador.
   const login = async (email: string, password: string) => {
     const admin = await findByMail(email);
@@ -48,6 +53,7 @@ export const AdminService = () => {
     return await updateGuest(data);
   }
   return {
+    create,
     login,
     getAllGuestService,
     deleteGuestService,

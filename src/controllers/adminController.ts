@@ -3,6 +3,7 @@ import httpStatus from "../helpers/httpStatus";
 import { AdminService } from "../services/adminService";
 
 const {
+    create,
     login,
     getAllGuestService,
     deleteGuestService,
@@ -11,6 +12,17 @@ const {
     updateGuestService
 } = AdminService();
 export const AdminController = () => {
+    // Controlador para crear admin
+    const createAdmin = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        const admin = await create(req.body);
+        if (!admin)
+            res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
+        next();
+    }
     // Controlador para iniciar seción
     const loginAdmin = async (
         req: Request,
@@ -81,6 +93,7 @@ export const AdminController = () => {
         next();
     }
     return {
+        createAdmin,
         loginAdmin,
         getAllGuest,
         deleteGuest,
