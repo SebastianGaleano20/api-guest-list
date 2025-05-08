@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const guestSchema = Joi.object({
+export const guestSchema = Joi.object({
     name: Joi.string().required(),
     lastName: Joi.string().required(),
     email: Joi.string().email().required(),
@@ -11,5 +11,3 @@ const guestSchema = Joi.object({
     companion: Joi.array(),
     musicSuggestion: Joi.array()
 })
-
-export default guestSchema;
