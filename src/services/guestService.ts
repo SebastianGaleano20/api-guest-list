@@ -1,5 +1,5 @@
 import { GuestModel } from "../models/guestModel";
-import type { Guest } from "../types/index";
+import type { Guest, ConfirmedGuest } from "../types/index";
 
 export const GuestService = () => {
   const { findByToken, confirmAttendance, getAllGuest, deleteGuest, findById, createGuest, updateGuest } = GuestModel();
@@ -12,11 +12,12 @@ export const GuestService = () => {
     return guest;
   };
   // Servicio para confirmar asistencia
-  const confirmGuest = async (token: string, data: Guest) => {
+  const confirmGuest = async (token: string, confirmedGuests: ConfirmedGuest[]) => {
     const guest = await findByToken(token);
-    if (!guest || guest.status === "CONFIRMED")
+    if (!guest || guest.status === "CONFIRMED") {
       throw new Error("Invitado no encontrado o ya confirmado");
-    return confirmAttendance(token, data);
+    }
+    return confirmAttendance(token, confirmedGuests);
   };
   // Servicio para obtener invitados
   const getAllGuestService = async () => {

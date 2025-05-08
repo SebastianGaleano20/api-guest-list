@@ -1,4 +1,5 @@
 type Status = "CONFIRMED" | "PENDING" | "CANCELED";
+export type ConfirmedGuest = { name: string; confirmed: boolean };
 export interface Guest {
   id?: Number;
   name: string;
@@ -7,7 +8,8 @@ export interface Guest {
   phone: string;
   image: string;
   status: Status;
-  companion?: string[];
+  token: string;
+  confirmedGuests?: ConfirmedGuest[];
   musicSuggestion?: string[];
 }
 export interface Admin {

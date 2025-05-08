@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import type { Guest } from "../types/index";
+import type { Guest, ConfirmedGuest } from "../types/index";
 
 export const GuestModel = () => {
   // Modelo para encontrar Invitado por token
@@ -11,13 +11,12 @@ export const GuestModel = () => {
     });
   };
   // Model para confirmar asistencia
-  const confirmAttendance = async (token: string, data: Guest) => {
+  const confirmAttendance = async (token: string,
+    confirmedGuests: ConfirmedGuest[]) => {
     return await prisma.guest.update({
-      where: {
-        token,
-      },
+      where: { token },
       data: {
-        ...data,
+        confirmedGuests,
         status: "CONFIRMED",
       },
     });

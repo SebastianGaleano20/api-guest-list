@@ -24,17 +24,21 @@ export const GuestController = () => {
         next();
     };
     // Controlador para confirmar asistencia
-    const confirm = async (
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ) => {
-        const { token } = req.params;
-        const guest = await confirmGuest(token, req.body);
-        if (!guest)
-            res.status(httpStatus.UNAUTHORIZED).json({ message: "Unauthorized" });
-        next();
-    };
+    const confirm = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+          const { token } = req.params;
+          const confirmedGuests = req.body.confirmedGuests;
+      
+          const guest = await confirmGuest(token, confirmedGuests);
+      
+          return res.status(httpStatus.OK).json({
+            message: "Asistencia confirmada",
+            guest,
+          });
+        } catch (error) {
+          next(error);
+        }
+      };
     // Controlador para obtener todos los invitados
     const getAllGuest = async (
         req: Request,
