@@ -11,3 +11,8 @@ export const guestSchema = Joi.object({
     companion: Joi.array(),
     musicSuggestion: Joi.array()
 })
+
+export const guestValidate = Joi.object({
+    name: Joi.string().required(),
+    token: Joi.string().required()
+})
