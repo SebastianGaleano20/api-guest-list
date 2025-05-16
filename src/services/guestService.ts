@@ -12,10 +12,10 @@ export const GuestService = () => {
     updateGuest,
   } = GuestModel();
   // Servicio para validar invitado
-  const validateGuest = async (name: string, token: string) => {
+  const validateGuest = async (firstName: string, token: string) => {
     //Validamos el token del invitado
     const guest = await findByToken(token);
-    if (!guest || guest.name !== name) return null;
+    if (!guest || guest.firstName !== firstName) return null;
     // Si el token o nombre no coincide devolvemos null
     return guest;
   };

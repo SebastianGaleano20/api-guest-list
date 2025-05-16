@@ -26,10 +26,15 @@ export const GuestModel = () => {
   // Model para crear invitado
   const createGuest = async (data: Guest) => {
     const { id, ...guestData } = data;
-    const guest = await prisma.guest.create({
-      data: guestData,
+
+    return await prisma.guest.create({
+      data: {
+        ...guestData,
+        confirmedGuests: guestData.confirmedGuests ?? [],
+      },
     });
   };
+
   // Model para obtener todos los invitados
   const getAllGuest = async () => {
     return await prisma.guest.findMany();
@@ -53,25 +58,24 @@ export const GuestModel = () => {
   // Model para actualizar datos del invitado
   const updateGuest = async (data: Guest) => {
     const { id, ...rest } = data;
-    if (id) {
-      const guest = await prisma.guest.update({
-        where: {
-          token: data.token,
-        },
-        data: {
-          ...rest,
-        },
-      });
-    }
+    const guest = await prisma.guest.update({
+      where: {
+        token: data.token,
+      },
+      data: {
+        ...rest,
+      },
+    });
+    return guest;
+  };
 
-    return {
-      findByToken,
-      confirmAttendance,
-      createGuest,
-      getAllGuest,
-      deleteGuest,
-      findById,
-      updateGuest,
-    };
+  return {
+    findByToken,
+    confirmAttendance,
+    createGuest,
+    getAllGuest,
+    deleteGuest,
+    findById,
+    updateGuest,
   };
 };

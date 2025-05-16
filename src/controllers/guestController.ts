@@ -15,10 +15,13 @@ export const GuestController = () => {
   // Controlador para validar invitado
   const validate = async (req: Request, res: Response, next: NextFunction) => {
     const { name, token } = req.body;
-    const guest = await validateGuest(name, token);
-    if (!guest)
-      res.status(httpStatus.UNAUTHORIZED).json({ message: "Unauthorized" });
-    next();
+    try {
+      const guest = await validateGuest(name, token);
+      if (!guest)
+        res.status(httpStatus.UNAUTHORIZED).json({ message: "Unauthorized" });
+    } catch (error) {
+      next(error);
+    }
   };
   // Controlador para confirmar asistencia
   const confirm = async (req: Request, res: Response, next: NextFunction) => {
@@ -28,7 +31,7 @@ export const GuestController = () => {
 
       const guest = await confirmGuest(token, confirmedGuests);
 
-      return res.status(httpStatus.OK).json({
+      res.status(httpStatus.OK).json({
         message: "Asistencia confirmada",
         guest,
       });
@@ -88,9 +91,9 @@ export const GuestController = () => {
     try {
       const guest = await updateGuestService(req.body);
       if (!guest) {
-        return res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
+        res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
       }
-      return res.status(httpStatus.OK).json(guest);
+      res.status(httpStatus.OK).json(guest);
     } catch (error) {
       next(error); // Propaga errores al middleware de manejo de errores
     }
