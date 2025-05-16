@@ -14,8 +14,9 @@ export const AdminModel = () => {
     });
   };
   // Modelo para validar Administrador
-  const findByMail = async (email: string): Promise<Admin | void> => {
-    return prisma.admin.findUnique({ where: { email } });
+  const findByMail = async (email: string) => {
+    const admin = await prisma.admin.findFirst({ where: { email } });
+    return admin;
   };
   return {
     createAdmin,
