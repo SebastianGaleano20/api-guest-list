@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { AdminController } from "../controllers/adminController";
-import { GuestController } from "../controllers/guestController";
-import { schemaValidator } from "../middlewares/schemaValidator";
-import { adminSchema, validateAdmin } from "../schemas/adminSchema";
-import { guestSchema } from "../schemas/guestSchema";
+import { AdminController } from "../controllers/adminController.js";
+import { GuestController } from "../controllers/guestController.js";
+import { schemaValidator } from "../middlewares/schemaValidator.js";
+import { adminSchema, validateAdmin } from "../schemas/adminSchema.js";
+import { guestSchema } from "../schemas/guestSchema.js";
 
 export const adminRoutes = () => {
   const adminRouter = Router();

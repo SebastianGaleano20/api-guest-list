@@ -1,6 +1,6 @@
 import { Response, Request, NextFunction } from "express";
-import { GuestService } from "../services/guestService";
-import httpStatus from "../helpers/httpStatus";
+import { GuestService } from "../services/guestService.js";
+import httpStatus from "../helpers/httpStatus.js";
 
 export const GuestController = () => {
   const {

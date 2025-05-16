@@ -1,5 +1,5 @@
-import jwt, { SignOptions, Secret } from "jsonwebtoken";
-import type { AdminTokenPayload } from "../types/index";
+import jwt from "jsonwebtoken";
+import type { AdminTokenPayload } from "../types/index.js";
 
 export const generateToken = ({
   data,

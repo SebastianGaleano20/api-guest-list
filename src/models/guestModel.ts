@@ -1,5 +1,5 @@
-import prisma from "../config/prisma";
-import type { Guest, ConfirmedGuest } from "../types/index";
+import prisma from "../config/prisma.js";
+import type { Guest, ConfirmedGuest } from "../types/index.js";
 
 export const GuestModel = () => {
   // Modelo para encontrar Invitado por token

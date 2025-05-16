@@ -1,6 +1,6 @@
-import prisma from "../config/prisma";
-import type { Admin } from "../types/index";
-import { encrypt } from "../utils/bcrypt";
+import prisma from "../config/prisma.js";
+import type { Admin } from "../types/index.js";
+import { encrypt } from "../utils/bcrypt.js";
 
 export const AdminModel = () => {
   // Modelo para crear Administrador.

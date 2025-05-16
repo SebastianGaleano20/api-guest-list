@@ -1,7 +1,7 @@
-import { AdminModel } from "../models/adminModel";
-import { verified } from "../utils/bcrypt";
-import { generateToken } from "../utils/tokenManagement";
-import type { Admin, AdminTokenPayload } from "../types/index";
+import { AdminModel } from "../models/adminModel.js";
+import { verified } from "../utils/bcrypt.js";
+import { generateToken } from "../utils/tokenManagement.js";
+import type { Admin, AdminTokenPayload } from "../types/index.js";
 
 const { findByMail, createAdmin } = AdminModel();
 
