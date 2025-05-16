@@ -4,7 +4,7 @@ import type { Guest, ConfirmedGuest } from "../types/index";
 export const GuestModel = () => {
   // Modelo para encontrar Invitado por token
   const findByToken = async (token: string) => {
-    return await prisma.guest.findUnique({
+    return await prisma.guest.findFirst({
       where: {
         token,
       },
@@ -16,17 +16,18 @@ export const GuestModel = () => {
     confirmedGuests: ConfirmedGuest[]
   ) => {
     return await prisma.guest.update({
-      where: { token },
+      where: { token: token },
       data: {
         confirmedGuests,
-        status: "CONFIRMED",
+        status: "CONFIRMATED",
       },
     });
   };
   // Model para crear invitado
   const createGuest = async (data: Guest) => {
-    return await prisma.guest.create({
-      data,
+    const { id, ...guestData } = data;
+    const guest = await prisma.guest.create({
+      data: guestData,
     });
   };
   // Model para obtener todos los invitados
@@ -51,23 +52,26 @@ export const GuestModel = () => {
   };
   // Model para actualizar datos del invitado
   const updateGuest = async (data: Guest) => {
-    return await prisma.guest.update({
-      where: {
-        id: data.id,
-      },
-      data: {
-        ...data,
-      },
-    });
-  };
+    const { id, ...rest } = data;
+    if (id) {
+      const guest = await prisma.guest.update({
+        where: {
+          token: data.token,
+        },
+        data: {
+          ...rest,
+        },
+      });
+    }
 
-  return {
-    findByToken,
-    confirmAttendance,
-    createGuest,
-    getAllGuest,
-    deleteGuest,
-    findById,
-    updateGuest,
+    return {
+      findByToken,
+      confirmAttendance,
+      createGuest,
+      getAllGuest,
+      deleteGuest,
+      findById,
+      updateGuest,
+    };
   };
 };

@@ -1,15 +1,17 @@
-type Status = "CONFIRMED" | "PENDING" | "CANCELED";
+type Status = "PENDING" | "CONFIRMATED" | "CANCELED";
+
 export type ConfirmedGuest = { name: string; confirmed: boolean };
 export interface Guest {
-  name: string;
+  id?: number;
+  firstName: string;
   lastName: string;
   email: string;
   phone: string;
   image: string;
   status: Status;
   token: string;
-  confirmedGuests?: ConfirmedGuest[];
-  musicSuggestion?: string[];
+  confirmedGuests: ConfirmedGuest[];
+  musicSuggestion: string[];
 }
 export interface Admin {
   name: string;
