@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import prisma from "../config/prisma";
-import { encrypt } from "../utils/bcrypt";
+import prisma from "../config/prisma.js";
+import { encrypt } from "../utils/bcrypt.js";
 export const AdminModel = () => {
     // Modelo para crear Administrador.
     const createAdmin = (data) => __awaiter(void 0, void 0, void 0, function* () {

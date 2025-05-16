@@ -7,9 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { AdminModel } from "../models/adminModel";
-import { verified } from "../utils/bcrypt";
-import { generateToken } from "../utils/tokenManagement";
+import { AdminModel } from "../models/adminModel.js";
+import { verified } from "../utils/bcrypt.js";
+import { generateToken } from "../utils/tokenManagement.js";
 const { findByMail, createAdmin } = AdminModel();
 export const AdminService = () => {
     // Servicio para crear administrador

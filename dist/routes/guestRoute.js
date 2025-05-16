@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { GuestController } from "../controllers/guestController";
-import { schemaValidator } from "../middlewares/schemaValidator";
-import { guestValidate, tokenValidate } from "../schemas/guestSchema";
+import { GuestController } from "../controllers/guestController.js";
+import { schemaValidator } from "../middlewares/schemaValidator.js";
+import { guestValidate, tokenValidate } from "../schemas/guestSchema.js";
 export const guestRoutes = () => {
     const guestRouter = Router();
     const { validate, confirm } = GuestController();

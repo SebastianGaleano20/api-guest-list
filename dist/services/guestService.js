@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { GuestModel } from "../models/guestModel";
+import { GuestModel } from "../models/guestModel.js";
 export const GuestService = () => {
     const { findByToken, confirmAttendance, getAllGuest, deleteGuest, findById, createGuest, updateGuest, } = GuestModel();
     // Servicio para validar invitado

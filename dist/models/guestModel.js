@@ -18,7 +18,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import prisma from "../config/prisma";
+import prisma from "../config/prisma.js";
 export const GuestModel = () => {
     // Modelo para encontrar Invitado por token
     const findByToken = (token) => __awaiter(void 0, void 0, void 0, function* () {

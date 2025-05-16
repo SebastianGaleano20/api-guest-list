@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import httpStatus from "../helpers/httpStatus";
-import { AdminService } from "../services/adminService";
+import httpStatus from "../helpers/httpStatus.js";
+import { AdminService } from "../services/adminService.js";
 export const AdminController = () => {
     const { create, login } = AdminService();
     // Controlador para crear admin
@@ -28,6 +28,6 @@ export const AdminController = () => {
     });
     return {
         createAdmin,
-        loginAdmin
+        loginAdmin,
     };
 };

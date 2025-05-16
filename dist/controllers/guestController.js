@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { GuestService } from "../services/guestService";
-import httpStatus from "../helpers/httpStatus";
+import { GuestService } from "../services/guestService.js";
+import httpStatus from "../helpers/httpStatus.js";
 export const GuestController = () => {
     const { getAllGuestService, deleteGuestService, getGuestByIdService, createGuestService, updateGuestService, validateGuest, confirmGuest, } = GuestService();
     // Controlador para validar invitado
