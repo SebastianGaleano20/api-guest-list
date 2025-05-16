@@ -19,3 +19,10 @@ export interface Admin {
   password: string;
   image: string;
 }
+
+export type AdminTokenPayload = {
+  id: number;
+  name: string;
+  email: string;
+  image: string;
+};

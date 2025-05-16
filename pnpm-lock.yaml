@@ -14,9 +14,6 @@ importers:
       '@types/bcrypt':
         specifier: ^5.0.2
         version: 5.0.2
-      '@types/jsonwebtoken':
-        specifier: ^9.0.9
-        version: 9.0.9
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1
@@ -45,6 +42,9 @@ importers:
       '@types/express':
         specifier: ^5.0.1
         version: 5.0.1
+      '@types/jsonwebtoken':
+        specifier: ^9.0.9
+        version: 9.0.9
       '@types/node':
         specifier: ^22.15.3
         version: 22.15.3
