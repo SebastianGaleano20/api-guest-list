@@ -1,4 +1,4 @@
-import { prisma } from "../config/prisma";
+import prisma from "../config/prisma";
 import type { Guest, ConfirmedGuest } from "../types/index";
 
 export const GuestModel = () => {
@@ -11,8 +11,10 @@ export const GuestModel = () => {
     });
   };
   // Model para confirmar asistencia
-  const confirmAttendance = async (token: string,
-    confirmedGuests: ConfirmedGuest[]) => {
+  const confirmAttendance = async (
+    token: string,
+    confirmedGuests: ConfirmedGuest[]
+  ) => {
     return await prisma.guest.update({
       where: { token },
       data: {
@@ -35,29 +37,29 @@ export const GuestModel = () => {
   const deleteGuest = async (id: number) => {
     return await prisma.guest.delete({
       where: {
-        id: id
-      }
-    })
-  }
+        id: id,
+      },
+    });
+  };
   // Model para encontrar invitado por id
   const findById = async (id: number) => {
     return await prisma.guest.findUnique({
       where: {
-        id: id
-      }
-    })
-  }
+        id: id,
+      },
+    });
+  };
   // Model para actualizar datos del invitado
   const updateGuest = async (data: Guest) => {
     return await prisma.guest.update({
       where: {
-        id: data.id
+        id: data.id,
       },
       data: {
-        ...data
-      }
-    })
-  }
+        ...data,
+      },
+    });
+  };
 
   return {
     findByToken,
@@ -66,6 +68,6 @@ export const GuestModel = () => {
     getAllGuest,
     deleteGuest,
     findById,
-    updateGuest
+    updateGuest,
   };
 };

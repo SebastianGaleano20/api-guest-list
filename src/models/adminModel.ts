@@ -1,4 +1,4 @@
-import { prisma } from "../config/prisma";
+import prisma from "../config/prisma";
 import type { Admin } from "../types/index";
 import { encrypt } from "../utils/bcrypt";
 
