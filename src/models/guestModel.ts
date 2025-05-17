@@ -34,7 +34,6 @@ export const GuestModel = () => {
       },
     });
   };
-
   // Model para obtener todos los invitados
   const getAllGuest = async () => {
     return await prisma.guest.findMany();

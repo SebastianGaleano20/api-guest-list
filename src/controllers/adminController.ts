@@ -10,9 +10,15 @@ export const AdminController = () => {
     res: Response,
     next: NextFunction
   ) => {
-    const admin = await create(req.body);
-    if (!admin) res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
-    next();
+    const data = req.body;
+    try {
+      const admin = await create(data);
+      res
+        .status(httpStatus.CREATED)
+        .json({ message: "Admin created successfully", admin });
+    } catch (error) {
+      next(error);
+    }
   };
   // Controlador para iniciar seción
   const loginAdmin = async (
@@ -20,11 +26,15 @@ export const AdminController = () => {
     res: Response,
     next: NextFunction
   ) => {
-    const { email, password } = req.body;
-    const admin = await login(email, password);
-    if (!admin)
-      res.status(httpStatus.UNAUTHORIZED).json({ message: "Unauthorized" });
-    next();
+    try {
+      const { email, password } = req.body;
+      const admin = await login(email, password);
+      if (!admin)
+        res.status(httpStatus.UNAUTHORIZED).json({ message: "Unauthorized" });
+      res.status(httpStatus.OK).json(admin);
+    } catch (error) {
+      next(error);
+    }
   };
   return {
     createAdmin,

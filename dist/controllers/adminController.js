@@ -13,18 +13,29 @@ export const AdminController = () => {
     const { create, login } = AdminService();
     // Controlador para crear admin
     const createAdmin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        const admin = yield create(req.body);
-        if (!admin)
-            res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
-        next();
+        const data = req.body;
+        try {
+            const admin = yield create(data);
+            res
+                .status(httpStatus.CREATED)
+                .json({ message: "Admin created successfully", admin });
+        }
+        catch (error) {
+            next(error);
+        }
     });
     // Controlador para iniciar seción
     const loginAdmin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        const { email, password } = req.body;
-        const admin = yield login(email, password);
-        if (!admin)
-            res.status(httpStatus.UNAUTHORIZED).json({ message: "Unauthorized" });
-        next();
+        try {
+            const { email, password } = req.body;
+            const admin = yield login(email, password);
+            if (!admin)
+                res.status(httpStatus.UNAUTHORIZED).json({ message: "Unauthorized" });
+            res.status(httpStatus.OK).json(admin);
+        }
+        catch (error) {
+            next(error);
+        }
     });
     return {
         createAdmin,
