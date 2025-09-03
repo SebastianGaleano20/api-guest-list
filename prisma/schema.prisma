@@ -21,13 +21,10 @@ model Guest {
   id              Int      @id @default(autoincrement())
   firstName       String
   lastName        String
-  email           String
-  phone           String
-  image           String
   token           String   @unique
   status          Status   @default(PENDING)
-  confirmedGuests Json?
-  musicSuggestion String[]
+  confirmedGuests String
+  musicSuggestion String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
