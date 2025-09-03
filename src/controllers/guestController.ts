@@ -41,14 +41,17 @@ export const GuestController = () => {
   };
   // Controlador para obtener todos los invitados
   const getAllGuest = async (
-    req: Request,
+    _req: Request,
     res: Response,
     next: NextFunction
   ) => {
-    const guests = await getAllGuestService();
-    if (!guests)
-      res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
-    next();
+    try {
+      const guests = await getAllGuestService();
+      if (!guests)
+        res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
+    } catch (error) {
+      next(error);
+    }
   };
   // Controlador para eliminar un invitado
   const deleteGuest = async (
