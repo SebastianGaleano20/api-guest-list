@@ -10,19 +10,6 @@ export const GuestModel = () => {
       },
     });
   };
-  // Model para confirmar asistencia
-  const confirmAttendance = async (
-    token: string,
-    confirmedGuests: ConfirmedGuest[]
-  ) => {
-    return await prisma.guest.update({
-      where: { token: token },
-      data: {
-        confirmedGuests,
-        status: "CONFIRMATED",
-      },
-    });
-  };
   // Model para crear invitado
   const createGuest = async (data: Guest) => {
     const { id, ...guestData } = data;
@@ -36,7 +23,15 @@ export const GuestModel = () => {
   };
   // Model para obtener todos los invitados
   const getAllGuest = async () => {
-    return await prisma.guest.findMany();
+    try {
+      const guests = await prisma.guest.findMany();
+      if (!guests) return { message: "No hay invitados" };
+      return guests;
+    } catch (error) {
+      throw new Error("Error al obtener invitados");
+    } finally {
+      await prisma.$disconnect();
+    }
   };
   // Model para eliminar un invitado
   const deleteGuest = async (id: number) => {
@@ -70,7 +65,6 @@ export const GuestModel = () => {
 
   return {
     findByToken,
-    confirmAttendance,
     createGuest,
     getAllGuest,
     deleteGuest,
