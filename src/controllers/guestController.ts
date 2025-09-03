@@ -78,9 +78,17 @@ export const GuestController = () => {
     res: Response,
     next: NextFunction
   ) => {
-    const guest = await createGuestService(req.body);
-    if (!guest) res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
-    next();
+    const data = req.body;
+    try {
+      const guest = await createGuestService(data);
+      if (!guest)
+        res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
+      res
+        .status(httpStatus.CREATED)
+        .json({ message: "Guest created successfully", guest });
+    } catch (error) {
+      next(error);
+    }
   };
   // Controlador para actualizar un invitado
   const updateGuest = async (
@@ -95,7 +103,7 @@ export const GuestController = () => {
       }
       res.status(httpStatus.OK).json(guest);
     } catch (error) {
-      next(error); // Propaga errores al middleware de manejo de errores
+      next(error);
     }
   };
   return {
