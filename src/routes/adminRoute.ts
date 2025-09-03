@@ -13,10 +13,7 @@ export const adminRoutes = () => {
 
   adminRouter.route("/create").post(schemaValidator(adminSchema), createAdmin);
   adminRouter.route("/login").post(schemaValidator(validateAdmin), loginAdmin);
-  adminRouter
-    .route("/guests")
-    .post(schemaValidator(guestSchema), createGuest)
-    .get(getAllGuest);
+  adminRouter.route("/guests").post(schemaValidator(guestSchema), createGuest);
   adminRouter
     .route("/guests/:id")
     .delete(deleteGuest)
