@@ -13,9 +13,9 @@ export const GuestController = () => {
   } = GuestService();
   // Controlador para validar invitado
   const validate = async (req: Request, res: Response, next: NextFunction) => {
-    const { name, token } = req.body;
+    const { firstName, token } = req.body;
     try {
-      const guest = await validateGuest(name, token);
+      const guest = await validateGuest(firstName, token);
       if (!guest)
         res.status(httpStatus.UNAUTHORIZED).json({ message: "Unauthorized" });
       res
