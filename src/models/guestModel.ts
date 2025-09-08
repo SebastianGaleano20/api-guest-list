@@ -9,8 +9,8 @@ export const GuestModel = () => {
         data: data,
       });
       return guest;
-    } catch (error) {
-      throw new Error("Error al crear invitado");
+    } catch (error: any) {
+      throw new Error(`Error al crear invitado ${error.message}`);
     } finally {
       await prisma.$disconnect();
     }
@@ -51,7 +51,7 @@ export const GuestModel = () => {
   };
   // Model para actualizar datos del invitado
   const updateGuest = async (data: Guest) => {
-    const { id, ...rest } = data;
+    const { ...rest } = data;
     const guest = await prisma.guest.update({
       where: {
         token: data.token,

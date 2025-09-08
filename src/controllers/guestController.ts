@@ -104,7 +104,6 @@ export const GuestController = () => {
   };
   return {
     validate,
-    confirm,
     getAllGuest,
     deleteGuest,
     getGuestById,

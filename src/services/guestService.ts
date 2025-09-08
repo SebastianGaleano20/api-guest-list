@@ -1,5 +1,5 @@
 import { GuestModel } from "../models/guestModel.js";
-import type { Guest, ConfirmedGuest } from "../types/index.js";
+import type { Guest } from "../types/index.js";
 
 export const GuestService = () => {
   const {
