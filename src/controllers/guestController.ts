@@ -18,6 +18,9 @@ export const GuestController = () => {
       const guest = await validateGuest(name, token);
       if (!guest)
         res.status(httpStatus.UNAUTHORIZED).json({ message: "Unauthorized" });
+      res
+        .status(httpStatus.OK)
+        .json({ message: "Guest validated successfully", guest });
     } catch (error) {
       next(error);
     }
@@ -49,9 +52,9 @@ export const GuestController = () => {
     const { id } = req.params;
     if (!id)
       res.status(httpStatus.BAD_REQUEST).json({ message: "Bad request" });
-    const idGuest = Number(id);
+    const idNumber = Number(id);
     try {
-      const guest = await deleteGuestService(idGuest);
+      const guest = await deleteGuestService(idNumber);
       res
         .status(httpStatus.OK)
         .json({ message: "Guest deleted successfully", guest });
@@ -66,9 +69,15 @@ export const GuestController = () => {
     next: NextFunction
   ) => {
     const { id } = req.params;
-    const guest = await getGuestByIdService(Number(id));
-    if (!guest) res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
-    next();
+    const idNumber = Number(id);
+    try {
+      const guest = await getGuestByIdService(idNumber);
+      res
+        .status(httpStatus.OK)
+        .json({ message: "Guest retrieved successfully", guest });
+    } catch (error) {
+      next(error);
+    }
   };
   // Controlador para crear un invitado
   const createGuest = async (
@@ -92,12 +101,17 @@ export const GuestController = () => {
     res: Response,
     next: NextFunction
   ) => {
+    const { id } = req.params;
+    const idNumber = Number(id);
+    const data = req.body;
     try {
-      const guest = await updateGuestService(req.body);
+      const guest = await updateGuestService(idNumber, data);
       if (!guest) {
         res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
       }
-      res.status(httpStatus.OK).json(guest);
+      res
+        .status(httpStatus.OK)
+        .json({ message: "Guest updated successfully", guest });
     } catch (error) {
       next(error);
     }

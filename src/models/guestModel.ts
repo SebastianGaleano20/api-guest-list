@@ -20,8 +20,8 @@ export const GuestModel = () => {
     try {
       const guests = await prisma.guest.findMany();
       return guests;
-    } catch (error) {
-      throw new Error("Error al obtener invitados");
+    } catch (error: any) {
+      throw new Error(`Error al crear invitado ${error.message}`);
     } finally {
       await prisma.$disconnect();
     }
@@ -35,40 +35,58 @@ export const GuestModel = () => {
         },
       });
       return guest;
-    } catch (error) {
-      throw new Error("Error al eliminar invitado");
+    } catch (error: any) {
+      throw new Error(`Error al crear invitado ${error.message}`);
     } finally {
       await prisma.$disconnect();
     }
   };
   // Model para encontrar invitado por id
   const findById = async (id: number) => {
-    return await prisma.guest.findUnique({
-      where: {
-        id: id,
-      },
-    });
+    try {
+      const guest = await prisma.guest.findUnique({
+        where: {
+          id: id,
+        },
+      });
+      return guest;
+    } catch (error: any) {
+      throw new Error(`Error al crear invitado ${error.message}`);
+    } finally {
+      await prisma.$disconnect();
+    }
   };
+
   // Model para actualizar datos del invitado
-  const updateGuest = async (data: Guest) => {
-    const { ...rest } = data;
-    const guest = await prisma.guest.update({
-      where: {
-        token: data.token,
-      },
-      data: {
-        ...rest,
-      },
-    });
-    return guest;
+  const updateGuest = async (id: number, data: Guest) => {
+    try {
+      const guest = await prisma.guest.update({
+        where: {
+          id: id,
+        },
+        data: data,
+      });
+      return guest;
+    } catch (error: any) {
+      throw new Error(`Error al crear invitado ${error.message}`);
+    } finally {
+      await prisma.$disconnect();
+    }
   };
   // Modelo para encontrar Invitado por token
   const findByToken = async (token: string) => {
-    return await prisma.guest.findFirst({
-      where: {
-        token,
-      },
-    });
+    try {
+      const guest = await prisma.guest.findUnique({
+        where: {
+          token,
+        },
+      });
+      return guest;
+    } catch (error: any) {
+      throw new Error(`Error al crear invitado ${error.message}`);
+    } finally {
+      await prisma.$disconnect();
+    }
   };
   return {
     findByToken,

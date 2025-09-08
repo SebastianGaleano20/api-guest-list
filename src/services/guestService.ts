@@ -36,8 +36,8 @@ export const GuestService = () => {
     return await createGuest(data);
   };
   // Servicio para actualizar datos del invitado
-  const updateGuestService = async (data: Guest) => {
-    return await updateGuest(data);
+  const updateGuestService = async (id: number, data: Guest) => {
+    return await updateGuest(id, data);
   };
   return {
     validateGuest,
