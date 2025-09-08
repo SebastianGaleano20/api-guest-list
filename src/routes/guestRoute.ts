@@ -1,13 +1,25 @@
 import { Router } from "express";
 import { GuestController } from "../controllers/guestController.js";
 import { schemaValidator } from "../middlewares/schemaValidator.js";
-import { guestValidate, tokenValidate } from "../schemas/guestSchema.js";
+import { guestValidate, guestSchema } from "../schemas/guestSchema.js";
 
 export const guestRoutes = () => {
   const guestRouter = Router();
-  const { validate, confirm, getAllGuest } = GuestController();
+  const {
+    validate,
+    getAllGuest,
+    createGuest,
+    deleteGuest,
+    updateGuest,
+    getGuestById,
+  } = GuestController();
   guestRouter.route("/").get(getAllGuest);
   guestRouter.route("/validate").post(schemaValidator(guestValidate), validate);
-  guestRouter.route("/confirm").post(schemaValidator(tokenValidate), confirm);
+  guestRouter.route("/create").post(schemaValidator(guestSchema), createGuest);
+  guestRouter
+    .route("/:id")
+    .delete(deleteGuest)
+    .put(schemaValidator(guestSchema), updateGuest)
+    .get(getGuestById);
   return guestRouter;
 };
