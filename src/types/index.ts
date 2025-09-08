@@ -1,4 +1,4 @@
-type Status = "PENDING" | "CONFIRMATED" | "CANCELED";
+type Status = "PENDING" | "CONFIRMED" | "CANCELED";
 
 export interface Guest {
   firstName: string;
