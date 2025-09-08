@@ -2,14 +2,6 @@ import prisma from "../config/prisma.js";
 import type { Guest, ConfirmedGuest } from "../types/index.js";
 
 export const GuestModel = () => {
-  // Modelo para encontrar Invitado por token
-  const findByToken = async (token: string) => {
-    return await prisma.guest.findFirst({
-      where: {
-        token,
-      },
-    });
-  };
   // Model para crear invitado
   const createGuest = async (data: Guest) => {
     const { id, ...guestData } = data;
@@ -17,7 +9,6 @@ export const GuestModel = () => {
     return await prisma.guest.create({
       data: {
         ...guestData,
-        confirmedGuests: guestData.confirmedGuests ?? [],
       },
     });
   };
@@ -62,7 +53,14 @@ export const GuestModel = () => {
     });
     return guest;
   };
-
+  // Modelo para encontrar Invitado por token
+  const findByToken = async (token: string) => {
+    return await prisma.guest.findFirst({
+      where: {
+        token,
+      },
+    });
+  };
   return {
     findByToken,
     createGuest,
