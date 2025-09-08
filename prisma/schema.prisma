@@ -23,8 +23,8 @@ model Guest {
   lastName        String
   token           String   @unique
   status          Status   @default(PENDING)
-  confirmedGuests String
-  musicSuggestion String
+  confirmedGuests String   @default("")
+  musicSuggestion String   @default("")
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }

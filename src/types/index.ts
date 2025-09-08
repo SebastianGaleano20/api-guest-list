@@ -5,8 +5,8 @@ export interface Guest {
   lastName: string;
   status: Status;
   token: string;
-  confirmedGuests: string;
-  musicSuggestion: string;
+  confirmedGuests?: string;
+  musicSuggestion?: string;
 }
 export interface Admin {
   name: string;
