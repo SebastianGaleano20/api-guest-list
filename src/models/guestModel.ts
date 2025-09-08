@@ -58,7 +58,7 @@ export const GuestModel = () => {
   };
 
   // Model para actualizar datos del invitado
-  const updateGuest = async (id: number, data: Guest) => {
+  const updateGuest = async (id: number, data: Partial<Guest>) => {
     try {
       const guest = await prisma.guest.update({
         where: {
