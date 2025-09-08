@@ -1,5 +1,6 @@
 import { GuestModel } from "../models/guestModel.js";
 import type { Guest } from "../types/index.js";
+import { cleanObject } from "../utils/cleanObject.js";
 
 export const GuestService = () => {
   const {
@@ -37,7 +38,8 @@ export const GuestService = () => {
   };
   // Servicio para actualizar datos del invitado
   const updateGuestService = async (id: number, data: Guest) => {
-    return await updateGuest(id, data);
+    const cleanedData = cleanObject(data);
+    return await updateGuest(id, cleanedData);
   };
   return {
     validateGuest,
