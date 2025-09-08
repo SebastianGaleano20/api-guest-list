@@ -4,7 +4,6 @@ import type { Guest, ConfirmedGuest } from "../types/index.js";
 export const GuestService = () => {
   const {
     findByToken,
-    confirmAttendance,
     getAllGuest,
     deleteGuest,
     findById,
@@ -19,17 +18,7 @@ export const GuestService = () => {
     // Si el token o nombre no coincide devolvemos null
     return guest;
   };
-  // Servicio para confirmar asistencia
-  const confirmGuest = async (
-    token: string,
-    confirmedGuests: ConfirmedGuest[]
-  ) => {
-    const guest = await findByToken(token);
-    if (!guest || guest.status === "CONFIRMATED") {
-      throw new Error("Invitado no encontrado o ya confirmado");
-    }
-    return confirmAttendance(token, confirmedGuests);
-  };
+
   // Servicio para obtener invitados
   const getAllGuestService = async () => {
     return await getAllGuest();
@@ -52,7 +41,6 @@ export const GuestService = () => {
   };
   return {
     validateGuest,
-    confirmGuest,
     updateGuestService,
     createGuestService,
     getGuestByIdService,

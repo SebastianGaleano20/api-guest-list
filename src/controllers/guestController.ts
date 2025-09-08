@@ -10,7 +10,6 @@ export const GuestController = () => {
     createGuestService,
     updateGuestService,
     validateGuest,
-    confirmGuest,
   } = GuestService();
   // Controlador para validar invitado
   const validate = async (req: Request, res: Response, next: NextFunction) => {
@@ -23,22 +22,7 @@ export const GuestController = () => {
       next(error);
     }
   };
-  // Controlador para confirmar asistencia
-  const confirm = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { token } = req.body;
-      const confirmedGuests = req.body.confirmedGuests;
 
-      const guest = await confirmGuest(token, confirmedGuests);
-
-      res.status(httpStatus.OK).json({
-        message: "Asistencia confirmada",
-        guest,
-      });
-    } catch (error) {
-      next(error);
-    }
-  };
   // Controlador para obtener todos los invitados
   const getAllGuest = async (
     _req: Request,
