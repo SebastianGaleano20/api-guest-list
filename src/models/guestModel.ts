@@ -1,22 +1,24 @@
 import prisma from "../config/prisma.js";
-import type { Guest, ConfirmedGuest } from "../types/index.js";
+import type { Guest } from "../types/index.js";
 
 export const GuestModel = () => {
   // Model para crear invitado
   const createGuest = async (data: Guest) => {
-    const { id, ...guestData } = data;
-
-    return await prisma.guest.create({
-      data: {
-        ...guestData,
-      },
-    });
+    try {
+      const guest = await prisma.guest.create({
+        data: data,
+      });
+      return guest;
+    } catch (error) {
+      throw new Error("Error al crear invitado");
+    } finally {
+      await prisma.$disconnect();
+    }
   };
   // Model para obtener todos los invitados
   const getAllGuest = async () => {
     try {
       const guests = await prisma.guest.findMany();
-      if (!guests) return { message: "No hay invitados" };
       return guests;
     } catch (error) {
       throw new Error("Error al obtener invitados");
@@ -26,11 +28,18 @@ export const GuestModel = () => {
   };
   // Model para eliminar un invitado
   const deleteGuest = async (id: number) => {
-    return await prisma.guest.delete({
-      where: {
-        id: id,
-      },
-    });
+    try {
+      const guest = await prisma.guest.delete({
+        where: {
+          id: id,
+        },
+      });
+      return guest;
+    } catch (error) {
+      throw new Error("Error al eliminar invitado");
+    } finally {
+      await prisma.$disconnect();
+    }
   };
   // Model para encontrar invitado por id
   const findById = async (id: number) => {
