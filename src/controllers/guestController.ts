@@ -33,6 +33,9 @@ export const GuestController = () => {
       const guests = await getAllGuestService();
       if (!guests)
         res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
+      res
+        .status(httpStatus.OK)
+        .json({ message: "All guests retrieved successfully", guests });
     } catch (error) {
       next(error);
     }
@@ -44,9 +47,17 @@ export const GuestController = () => {
     next: NextFunction
   ) => {
     const { id } = req.params;
-    const guest = await deleteGuestService(Number(id));
-    if (!guest) res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
-    next();
+    if (!id)
+      res.status(httpStatus.BAD_REQUEST).json({ message: "Bad request" });
+    const idGuest = Number(id);
+    try {
+      const guest = await deleteGuestService(idGuest);
+      res
+        .status(httpStatus.OK)
+        .json({ message: "Guest deleted successfully", guest });
+    } catch (error) {
+      next(error);
+    }
   };
   // Controlador para buscar invitado por id
   const getGuestById = async (
@@ -68,8 +79,6 @@ export const GuestController = () => {
     const data = req.body;
     try {
       const guest = await createGuestService(data);
-      if (!guest)
-        res.status(httpStatus.NOT_FOUND).json({ message: "Not found" });
       res
         .status(httpStatus.CREATED)
         .json({ message: "Guest created successfully", guest });
