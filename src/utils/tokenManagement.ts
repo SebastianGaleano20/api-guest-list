@@ -1,12 +1,16 @@
 import jwt from "jsonwebtoken";
-import type { AdminTokenPayload } from "../types/index.js";
+import type {
+  AdminTokenPayload,
+  GuestRefreshTokenPayload,
+  GuestTokenPayload,
+} from "../types/index.js";
 
 export const generateToken = ({
   data,
   expiresIn = "1h",
   isRefresh = false,
 }: {
-  data: AdminTokenPayload;
+  data: AdminTokenPayload | GuestTokenPayload | GuestRefreshTokenPayload;
   expiresIn?: string;
   isRefresh?: boolean;
 }): string => {

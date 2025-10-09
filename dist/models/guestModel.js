@@ -7,83 +7,102 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 import prisma from "../config/prisma.js";
 export const GuestModel = () => {
-    // Modelo para encontrar Invitado por token
-    const findByToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield prisma.guest.findFirst({
-            where: {
-                token,
-            },
-        });
-    });
-    // Model para confirmar asistencia
-    const confirmAttendance = (token, confirmedGuests) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield prisma.guest.update({
-            where: { token: token },
-            data: {
-                confirmedGuests,
-                status: "CONFIRMATED",
-            },
-        });
-    });
     // Model para crear invitado
     const createGuest = (data) => __awaiter(void 0, void 0, void 0, function* () {
-        var _a;
-        const { id } = data, guestData = __rest(data, ["id"]);
-        return yield prisma.guest.create({
-            data: Object.assign(Object.assign({}, guestData), { confirmedGuests: (_a = guestData.confirmedGuests) !== null && _a !== void 0 ? _a : [] }),
-        });
+        try {
+            const guest = yield prisma.guest.create({
+                data: data,
+            });
+            return guest;
+        }
+        catch (error) {
+            throw new Error(`Error al crear invitado ${error.message}`);
+        }
+        finally {
+            yield prisma.$disconnect();
+        }
     });
-    // Model para obtener todos los invitados
-    const getAllGuest = () => __awaiter(void 0, void 0, void 0, function* () {
-        return yield prisma.guest.findMany();
-    });
-    // Model para eliminar un invitado
-    const deleteGuest = (id) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield prisma.guest.delete({
-            where: {
-                id: id,
-            },
-        });
-    });
-    // Model para encontrar invitado por id
-    const findById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield prisma.guest.findUnique({
-            where: {
-                id: id,
-            },
-        });
-    });
-    // Model para actualizar datos del invitado
-    const updateGuest = (data) => __awaiter(void 0, void 0, void 0, function* () {
-        const { id } = data, rest = __rest(data, ["id"]);
-        const guest = yield prisma.guest.update({
-            where: {
-                token: data.token,
-            },
-            data: Object.assign({}, rest),
-        });
-        return guest;
-    });
+    // // Model para obtener todos los invitados
+    // const getAllGuest = async () => {
+    //   try {
+    //     const guests = await prisma.guest.findMany();
+    //     return guests;
+    //   } catch (error: any) {
+    //     throw new Error(`Error al crear invitado ${error.message}`);
+    //   } finally {
+    //     await prisma.$disconnect();
+    //   }
+    // };
+    // // Model para eliminar un invitado
+    // const deleteGuest = async (id: number) => {
+    //   try {
+    //     const guest = await prisma.guest.delete({
+    //       where: {
+    //         id: id,
+    //       },
+    //     });
+    //     return guest;
+    //   } catch (error: any) {
+    //     throw new Error(`Error al crear invitado ${error.message}`);
+    //   } finally {
+    //     await prisma.$disconnect();
+    //   }
+    // };
+    // // Model para encontrar invitado por id
+    // const findById = async (id: number) => {
+    //   try {
+    //     const guest = await prisma.guest.findUnique({
+    //       where: {
+    //         id: id,
+    //       },
+    //     });
+    //     return guest;
+    //   } catch (error: any) {
+    //     throw new Error(`Error al crear invitado ${error.message}`);
+    //   } finally {
+    //     await prisma.$disconnect();
+    //   }
+    // };
+    // // Model para actualizar datos del invitado
+    // const updateGuest = async (id: number, data: Guest) => {
+    //   try {
+    //     const guest = await prisma.guest.update({
+    //       where: {
+    //         id: id,
+    //       },
+    //       data: data,
+    //       omit: {
+    //         token: true,
+    //       },
+    //     });
+    //     return guest;
+    //   } catch (error: any) {
+    //     throw new Error(`Error al crear invitado ${error.message}`);
+    //   } finally {
+    //     await prisma.$disconnect();
+    //   }
+    // };
+    // // Modelo para encontrar Invitado por token
+    // const findByToken = async (token: string) => {
+    //   try {
+    //     const guest = await prisma.guest.findUnique({
+    //       where: {
+    //         token,
+    //       },
+    //     });
+    //     return guest;
+    //   } catch (error: any) {
+    //     throw new Error(`Error al crear invitado ${error.message}`);
+    //   }
+    // };
     return {
-        findByToken,
-        confirmAttendance,
         createGuest,
-        getAllGuest,
-        deleteGuest,
-        findById,
-        updateGuest,
+        // findByToken,
+        // getAllGuest,
+        // deleteGuest,
+        // findById,
+        // updateGuest,
     };
 };

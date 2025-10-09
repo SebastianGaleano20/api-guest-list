@@ -18,15 +18,14 @@ model Admin {
 }
 
 model Guest {
-  id              Int      @id @default(autoincrement())
-  firstName       String
-  lastName        String
-  token           String   @unique
-  status          Status   @default(PENDING)
-  confirmedGuests String   @default("")
-  musicSuggestion String   @default("")
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id           Int      @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  attendChurch Boolean  @default(false)
+  attendParty  Boolean  @default(false)
+  message      String   @default("")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 enum Status {
